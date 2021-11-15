@@ -1,0 +1,88 @@
+@startuml
+
+class App {
+    main()
+    start()
+}
+
+class TodoController {
+    model: ToDoModel
+
+    ToDoList: ObservableList
+
+    tableView: TableView
+    colDescription: TableColumn
+    colDueDate: TableColumn
+    colCompleted: TableColumn
+
+    txtNewDescription: TextField
+    dtNewDueDate: DatePicker
+    chkbx: CheckBox
+
+    lvTitles: ListView
+
+    activeToDoTask: ToDoTask
+    activeToDoList: ToDoList
+
+    refreshTitleList()
+    refreshToDoTasks()
+    btnSaveClicked()
+    btnLoadClicked()
+    btnDeleteListClicked()
+    btnDeleteToDoTaskClicked()
+    btnMarkCompleteClicked()
+    btnNewTaskClicked()
+    listTitleClicked()
+    btnCreateNewListClicked()
+    btnSaveListClicked()
+    initialize()
+}
+
+class ToDoModel {
+    ToDoList: Collection
+
+    getToDoList()
+
+    markTaskCompleted()
+    removeToDoTask()
+    removeList()
+    addList()
+    saveList()
+    saveAll()
+    loadList()
+    loadAll()
+}
+
+class ToDoList {
+    title: String
+    ToDoTasks: Collection
+
+    getToDoTasks()
+    setToDoTasks()
+
+    getTitle()
+    setTitle()
+
+    addTask()
+    removeTask()
+}
+
+class ToDoTask {
+    description: String
+    dueDate: String
+    complete: boolean
+
+    getDescription()
+    setDescription()
+    getDueDate()
+    setDueDate()
+    getComplete()
+    setComplete()
+}
+
+App -- ToDoController
+ToDoController -- ToDoModel
+ToDoModel -- ToDoList
+ToDoList -- ToDoTask
+
+@enduml

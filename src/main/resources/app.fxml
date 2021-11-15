@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ToDoController">
+  <top>
+    <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <items>
+          <Label alignment="CENTER" prefHeight="30.0" prefWidth="600.0" text="PRESS [ENTER] TO SAVE - [DOUBLE CLICK] TO EDIT" textFill="#b816a2">
+            <font>
+              <Font name="System Bold" size="18.0" />
+            </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+          </Label>
+      </items>
+    </ToolBar>
+  </top>
+  <center>
+    <SplitPane dividerPositions="0.5" prefHeight="360.0" prefWidth="455.0" BorderPane.alignment="CENTER">
+      <items>
+        <AnchorPane prefHeight="360.0" prefWidth="226.0">
+          <children>
+            <VBox>
+              <children>
+                <ListView fx:id="listToDoList" editable="true" onMouseClicked="#listTitleClicked" prefHeight="322.0" prefWidth="200.0" />
+                <HBox alignment="CENTER" prefHeight="34.0" prefWidth="200.0">
+                  <children>
+                    <Button fx:id="btnCreateNewList" mnemonicParsing="false" onAction="#btnCreateNewListClicked" text="NEW LIST" />
+                  </children>
+                </HBox>
+              </children>
+            </VBox>
+          </children>
+        </AnchorPane>
+        <AnchorPane />
+      </items>
+    </SplitPane>
+  </center>
+   <bottom>
+      <HBox alignment="BOTTOM_CENTER" prefHeight="48.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+         <children>
+        <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#btnLoadClicked" text="LOAD">
+               <HBox.margin>
+                  <Insets bottom="3.0" right="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveClicked" text="SAVE CHANGES">
+               <HBox.margin>
+                  <Insets bottom="3.0" left="50.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+<BorderPane prefHeight="359.0" prefWidth="422.0" BorderPane.alignment="CENTER">
+  <top>
+    <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <items>
+        <Button fx:id="btnSaveList" mnemonicParsing="false" onAction="#btnSaveListClicked" text="SAVE" />
+        <Button fx:id="btnDeleteList" mnemonicParsing="false" onAction="#btnDeleteListClicked" text="DELETE" />
+        <ComboBox fx:id="cmbFilter" prefWidth="150.0" promptText="FILTER TASKS..." />
+      </items>
+    </ToolBar>
+  </top>
+  <center>
+    <TableView fx:id="tableView" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <columns>
+        <TableColumn fx:id="colDescription" prefWidth="100.0" text="DESCRIPTION" />
+        <TableColumn fx:id="colDueDate" prefWidth="93.0" text="DUE DATE" />
+        <TableColumn fx:id="colCompleted" prefWidth="84.0" text="COMPLETED" />
+      </columns>
+    </TableView>
+  </center>
+         <right>
+      <VBox prefWidth="133.0" BorderPane.alignment="CENTER">
+      <children>
+        <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="422.0">
+          <children>
+            <Label text="NEW TASK...">
+              <font>
+                <Font name="System Bold" size="13.0" />
+              </font>
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+            </Label>
+          </children>
+        </HBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+            <TextField fx:id="txtNewDescription" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="135.0" promptText="DESCRIPTION">
+              <padding>
+                <Insets top="5.0" />
+              </padding>
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="35.0" />
+                           </VBox.margin>
+            </TextField>
+            <DatePicker fx:id="dtNewDueDate" promptText="DUE DATE" />
+            <CheckBox fx:id="chkbxNewCompleted" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="COMPLETED">
+                           <VBox.margin>
+                              <Insets left="25.0" top="5.0" />
+                           </VBox.margin>
+            </CheckBox>
+                     </children>
+                  </VBox>
+        <HBox alignment="TOP_CENTER">
+          <children>
+            <Button fx:id="btnCreateNewTask" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNewTaskClicked" text="CREATE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+          </children>
+        </HBox>
+      </children>
+               <BorderPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </BorderPane.margin>
+      </VBox>
+         </right>
+         <bottom>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+        <Button fx:id="btnDeleteToDoTask" mnemonicParsing="false" onAction="#btnDeleteToDoTaskClicked" prefHeight="20.0" prefWidth="113.0" text="DELETE">
+                     <HBox.margin>
+                        <Insets left="75.0" top="35.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+        </Button>
+        <Button fx:id="btnMarkComplete" mnemonicParsing="false" onAction="#btnMarkCompleteClicked" text="TASK COMPLETED">
+          <opaqueInsets>
+            <Insets />
+          </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="50.0" top="35.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+        </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </HBox>
+         </bottom>
+</BorderPane>
+   </left>
+</BorderPane>
