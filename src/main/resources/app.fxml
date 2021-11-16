@@ -30,12 +30,6 @@
                              <TableColumn fx:id="colDescription" prefWidth="351.0" text="DESCRIPTION" />
                              <TableColumn fx:id="colDueDate" minWidth="3.0" prefWidth="132.0" text="DUE DATE" />
                              <TableColumn fx:id="colCompleted" prefWidth="130.0" text="COMPLETED?" />
-
-                             <!--<TableColumn fx:id="colDescription" onEditCommit="#colDescriptionUpdate" prefWidth="331.0" text="Description" />
-                             <TableColumn fx:id="colDueDate" minWidth="3.0" onEditCommit="#colDueDateUpdate" prefWidth="79.0" text="Due Date" visible="false" />
-                             <TableColumn fx:id="colDueDateFormatted" minWidth="3.0" onEditCommit="#colDueDateUpdate" prefWidth="79.0" text="Due Date" />
-                             <TableColumn fx:id="colCompleted" onEditCommit="#colCompletedUpdate" prefWidth="75.0" text="Completed" />
-                             -->
                           </columns>
                            <HBox.margin>
                               <Insets />
