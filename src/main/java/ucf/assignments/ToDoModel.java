@@ -5,54 +5,93 @@
 
 package ucf.assignments;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Scanner;
 
 public class ToDoModel {
-    Collection<ToDoList> toDoList = new ArrayList<>();
+    static ToDoList toDoList = new ToDoList();
 
-    public Collection<ToDoList> getToDoList() {
-        return toDoList;
+    public ToDoList getToDoList() {
+        return this.toDoList;
     }
 
-    public void markTaskCompleted(String title, String description) {
-        // loop through tasks collection
-        // if title and description match then mark completed
+    public void setToDoList(ToDoList toDoList) {
+        this.toDoList = toDoList;
     }
 
-    public void removeToDoTask(String title, String description) {
-        // loop through tasks collection
-        // if title and description match then remove from list
-    }
-
-    public void removeList(String title) {
-        // loop through list
-        // check if title matches, then remove list
-
-    }
-
-    public void addList() {
-        // create new list with empty data
-        // add list to toDoList
-    }
-
-    public void saveList(String fileName) {
+    public static void saveList() {
         // save list to specified file name as a .csv
         // ex: getDesc() + "," + getDueDate + "," + getCompleted + "\n"
-    }
 
-    public void saveAll() {
-        // loop through each list and save it with saveList()
+        // save all local files to appdata folder
+        String fileName = System.getenv("APPDATA") + File.separator + "ToDoList" + File.separator + toDoList.getTitle() + ".csv";
+        File listToSave = new File(fileName);
 
+        // attempt to save to file
+        try {
+            Files.deleteIfExists(Path.of(listToSave.getPath()));
+            listToSave.createNewFile();
+            FileWriter fileWriter = new FileWriter(listToSave);
+
+            // continue if list contains tasks
+            if (!toDoList.toDoTasks.isEmpty()){
+                for (ToDoTask task : toDoList.getToDoTasks()) {
+                    StringBuilder s = new StringBuilder("\"" + task.getDescription() + "\"" + "," + "\"" + String.valueOf(task.getDueDate()) + "\"" + "," + "\"" + String.valueOf(task.getComplete()) + "\"" + "\n");
+                    fileWriter.write(String.valueOf(s));
+                }
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     public void loadList(String fileName) {
         // try to read .csv file by separating description, due date, and completed by commas
         // catch if errors
         // create new task with data and add to toDoList
-    }
 
-    public void loadAll() {
-        // read lists from file using loadList()
+        // load list from appdata folder
+        String path = System.getenv("APPDATA") + File.separator + "ToDoList" + File.separator;
+        String fullPath = path + fileName + ".csv";
+
+        // ensure the directory is present
+        File dir = new File(path);
+        if (!dir.exists()) dir.mkdir();
+
+        // make file if doesnt exist and save
+        File newFile = new File(fullPath);
+        if (!newFile.exists()) {
+            ToDoList missingList = new ToDoList(fileName);
+            toDoList = missingList;
+            saveList();
+        }
+
+        // load csv file and parse into tasks
+        Scanner file = new Scanner(fullPath);
+        ToDoList loadedList = new ToDoList(fileName);
+
+        // use buffer reader to read csv
+        try (BufferedReader br = new BufferedReader(new FileReader(fullPath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length >= 3) {
+                    String description = values[0].substring(1, values[0].length() - 1);
+                    LocalDate dueDate = LocalDate.parse(values[1].substring(1, values[1].length() - 1));
+                    Boolean isComplete = Boolean.parseBoolean(values[2].substring(1, values[2].length() - 1));
+                    loadedList.addTask(description, dueDate, isComplete);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // update list
+        toDoList.setTitle(loadedList.getTitle());
+        toDoList.setToDoTasks(loadedList.getToDoTasks());
     }
 }

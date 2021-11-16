@@ -5,7 +5,10 @@
 
 package ucf.assignments;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 class ToDoListTest {
 
@@ -14,6 +17,10 @@ class ToDoListTest {
         // call add task from todolist class with test data
         // create a new task with same test data
         // check if task list has a task with same test data
+        ToDoList testList = new ToDoList();
+        ToDoTask testTask = new ToDoTask("TestTask", LocalDate.of(2022, 6, 20), true);
+        testList.addTask("TestTask", LocalDate.of(2022, 6, 20), true);
+        Assertions.assertTrue(testList.getToDoTasks().contains(testTask));
     }
 
     @Test
@@ -21,5 +28,10 @@ class ToDoListTest {
         // call add task from todolist class with test data
         // create a new task with same test data
         // check if task list does not have a task with same test data
+        ToDoList testList = new ToDoList();
+        ToDoTask testTask = new ToDoTask("TestTask", LocalDate.of(2022, 6, 20), true);
+        testList.addTask("TestTask", LocalDate.of(2022, 6, 20), true);
+        testList.removeTask(testTask.getDescription());
+        Assertions.assertFalse(testList.getToDoTasks().contains(testTask));
     }
 }

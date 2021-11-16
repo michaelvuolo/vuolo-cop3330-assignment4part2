@@ -5,7 +5,10 @@
 
 package ucf.assignments;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 class ToDoModelTest {
 
@@ -21,6 +24,20 @@ class ToDoModelTest {
         // create a new list and reset it
         // load test list from file
         // check whether list exists
+        ToDoModel app = new ToDoModel();
+        app.getToDoList().setTitle("Test");
+        app.saveList();
+
+        app.getToDoList().setTitle("newTest");
+        app.loadList("Test");
+
+        // check if loaded
+        Assertions.assertEquals(app.getToDoList().getTitle(), "Test");
+        String filepath = System.getenv("APPDATA") + File.separator + "ToDoList" + File.separator + "Test.csv";
+        File file = new File(filepath);
+
+        // cleanup
+        file.delete();
     }
 
     @Test
@@ -35,6 +52,17 @@ class ToDoModelTest {
         // create a new list and reset it
         // save test list to file
         // check whether file exists
+        ToDoModel app = new ToDoModel();
+        app.getToDoList().setTitle("Test");
+        app.saveList();
+        String path = System.getenv("APPDATA") + File.separator + "ToDoList" + File.separator + "Test.csv";
+        File file = new File(path);
+
+        // ensure file exists
+        Assertions.assertTrue(file.exists());
+
+        // cleanup
+        file.delete();
     }
 
     @Test

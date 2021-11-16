@@ -5,6 +5,8 @@
 
 package ucf.assignments;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.time.LocalDate;
 
 public class ToDoTask {
@@ -12,7 +14,14 @@ public class ToDoTask {
     // setup vars
     String description;
     LocalDate dueDate;
-    boolean complete;
+    Boolean complete;
+
+    // constructors
+    public ToDoTask(String description, LocalDate dueDate, boolean complete) {
+        this.description = description;
+        this.dueDate = dueDate;
+        this.complete = complete;
+    }
 
     // mutators & accessors
     public String getDescription() {

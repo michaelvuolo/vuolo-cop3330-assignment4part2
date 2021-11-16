@@ -23,8 +23,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'ucf.assignments.vuolocop3330assignment4'
-    mainClass = 'ucf.assignments.vuolocop3330assignment4.App'
+    mainModule = 'ucf.assignments.vuolocop3330assignment4part2'
+    mainClass = 'ucf.assignments.vuolocop3330assignment4part2.App'
 }
 
 javafx {
